@@ -1,0 +1,35 @@
+{
+  "name": "Users",
+  "version": "1.0.0",
+  "description": "User service stands to managing users information and roles",
+  "basic": true,
+  "depends": [
+    "users"
+  ],
+  "admin": {
+    "navs": [
+      {
+        "name": "users",
+        "label": "Users",
+        "url" : "/users",
+        "icon" : ""
+      },
+      {
+        "name": "roles",
+        "label": "Roles",
+        "url" : "/roles",
+        "icon" : ""
+      }
+    ]
+  },
+  "client": {
+    "navs": [
+      {
+        "name": "profile",
+        "label": "Profile",
+        "url" : "/profile",
+        "icon" : ""
+      }
+    ]
+  }
+}

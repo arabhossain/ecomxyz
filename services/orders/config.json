@@ -1,0 +1,29 @@
+{
+  "name": "Orders",
+  "version": "1.0.0",
+  "description": "",
+  "basic": true,
+  "depends": [
+    "users"
+  ],
+  "admin": {
+    "navs": [
+      {
+        "name": "orders",
+        "label": "Orders",
+        "url" : "/orders",
+        "icon" : ""
+      }
+    ]
+  },
+  "client": {
+    "navs": [
+      {
+        "name": "orders",
+        "label": "Login",
+        "url" : "/orders",
+        "icon" : ""
+      }
+    ]
+  }
+}

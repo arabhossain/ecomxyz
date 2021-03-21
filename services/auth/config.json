@@ -1,0 +1,42 @@
+{
+  "name": "Auth",
+  "version": "1.0.0",
+  "description": "Authentication and Authorization service of users",
+  "basic": true,
+  "depends": [
+    "users"
+  ],
+  "admin": {
+    "navs": [
+
+    ]
+  },
+  "client": {
+    "navs": [
+      {
+        "name": "login",
+        "label": "Login",
+        "url" : "/login",
+        "icon" : ""
+      },
+      {
+        "name": "logout",
+        "label": "Logout",
+        "url" : "/logout",
+        "icon" : ""
+      },
+      {
+        "name": "forgetPassword",
+        "label": "Forget Password",
+        "url" : "/forget-password",
+        "icon" : ""
+      },
+      {
+        "name": "resetPassword",
+        "label": "Rest Password",
+        "url" : "/rest-password",
+        "icon" : ""
+      }
+    ]
+  }
+}

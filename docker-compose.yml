@@ -1,0 +1,98 @@
+version: '3.4'
+
+services:
+  #Genarators Services
+  auth_service:
+    container_name: authService
+    build: images/apache
+    volumes:
+      - ./services/auth:/var/www/html
+    depends_on:
+      - db
+    ports:
+      - 8011:80
+    networks:
+      - backend-tier
+
+  orders_service:
+    container_name: ordersService
+    build: images/apache
+    volumes:
+      - ./services/orders:/var/www/html
+    depends_on:
+      - db
+    ports:
+      - 8012:80
+    networks:
+      - backend-tier
+
+  client:
+    container_name: wwwClient
+    image: node
+    working_dir: "/var/www/app"
+    environment:
+      - HOST=0.0.0.0
+    ports:
+      - 8083:3000
+    volumes:
+      - ./web/client:/var/www/app
+    command: bash -c "npm install && npm run dev"
+    depends_on:
+      - auth_service
+      - orders_service
+    networks:
+      - client-tier
+
+  admin:
+    container_name: wwwAdmin
+    image: node
+    working_dir: "/var/www/app"
+    environment:
+      - HOST=0.0.0.0
+    ports:
+      - 8084:3000
+    volumes:
+      - ./web/admin:/var/www/app
+    command: bash -c "npm install && npm run dev"
+    depends_on:
+      - auth_service
+      - orders_service
+    networks:
+      - client-tier
+
+  db:
+    container_name: database
+    image: mariadb:10.3
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: notSecureChangeMe
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./images/database/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - backend-tier
+
+  phpmyadmin:
+      container_name: phpmyadmin
+      image: phpmyadmin
+      restart: always
+      ports:
+        - 8010:80
+      environment:
+        - PMA_ARBITRARY=1
+      depends_on:
+        - db
+      networks:
+        - backend-tier
+  cache:
+    container_name: cache_driver
+    image: memcached:1.6-alpine
+
+volumes:
+  dbdata:
+    driver: local
+
+networks:
+  client-tier:
+    driver: bridge
+  backend-tier:
